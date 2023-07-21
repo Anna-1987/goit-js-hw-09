@@ -24,9 +24,8 @@ refs.startBtn.addEventListener('click', ()=> {
         onClose(selectedDates) {
             if (selectedDates[0] < Date.now() || selectedDates[0] === new Date()) {
                 Notify.failure('Please choose a date in the future');
-                // selectedDates[0] = new Date();
               } else {
-                refs.startBtn = false;
+                refs.startBtn = true;
                 selectedTime = selectedDates[0];
               }
         },
@@ -41,20 +40,20 @@ function convertMs(ms) {
     const day = hour * 24;
   
     // Remaining days
-    const days = Math.floor(ms / day);
+    const days = addLeadingZero(Math.floor(ms / day));
     // Remaining hours
-    const hours = Math.floor((ms % day) / hour);
+    const hours = addLeadingZero(Math.floor((ms % day) / hour));
     // Remaining minutes
-    const minutes = Math.floor(((ms % day) % hour) / minute);
+    const minutes = addLeadingZero(Math.floor(((ms % day) % hour) / minute));
     // Remaining seconds
-    const seconds = Math.floor((((ms % day) % hour) % minute) / second);
+    const seconds = addLeadingZero(Math.floor((((ms % day) % hour) % minute) / second));
   
     return { days, hours, minutes, seconds };
   }
 
-//   function pad(value) {
-//     return String(value).padStart(2, '0');
-//   }
+  function addLeadingZero(value) {
+    return String(value).padStart(2, '0');
+  }
 
   const timer = {
     intervalId: null,
@@ -64,11 +63,13 @@ function convertMs(ms) {
       if (this.isActive){
         return;
       }
-
+    
+    const finishTime = selectedTime;
     this.isActive = true;
+
     this.intervalId = setInterval (() => {
          const currentTimer = Date.now();
-         const ms = selectedTime - currentTimer;
+         const ms = finishTime - currentTimer;
          const time = convertMs(ms);
         // console.log(`${days}:${hours}:${minutes}:${seconds}`);
          updateClockTime(time);
