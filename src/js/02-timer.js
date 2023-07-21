@@ -27,10 +27,10 @@ refs.startBtn.addEventListener('click', ()=> {
             if (selectedDates[0] < Date.now() || selectedDates[0] === new Date()) {
                 Notify.failure('Please choose a date in the future');
                 refs.startBtn.classList.remove('style-btn');
-              } else {
+                } else {
                 refs.startBtn.classList.add('style-btn');
                 selectedTime = selectedDates[0];
-
+                refs.startBtn.disabled = false;
               }
         },
 });
@@ -61,10 +61,10 @@ function convertMs(ms) {
 
   const timer = {
     intervalId: null,
-    isActive:false,
+    isActive: false,
         
     start (){
-      if (this.isActive){
+      if (this.isActive) {
         return;
       }
     
