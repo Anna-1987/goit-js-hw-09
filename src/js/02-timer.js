@@ -64,12 +64,11 @@ function convertMs(ms) {
         return;
       }
     
-    const finishTime = selectedTime;
     this.isActive = true;
 
     this.intervalId = setInterval (() => {
          const currentTimer = Date.now();
-         const ms = finishTime - currentTimer;
+         const ms = selectedTime - currentTimer;
          const time = convertMs(ms);
         // console.log(`${days}:${hours}:${minutes}:${seconds}`);
          updateClockTime(time);
