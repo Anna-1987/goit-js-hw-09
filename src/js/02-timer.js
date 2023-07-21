@@ -18,7 +18,7 @@ refs.startBtn.addEventListener('click', ()=> {
     
     })
 
-    flatpickr('#datetime-picker', {
+    flatpickr(refs.input, {
         enableTime: true,
         time_24hr: true,
         defaultDate: new Date(),
@@ -26,9 +26,11 @@ refs.startBtn.addEventListener('click', ()=> {
         onClose(selectedDates) {
             if (selectedDates[0] < Date.now() || selectedDates[0] === new Date()) {
                 Notify.failure('Please choose a date in the future');
+                refs.startBtn.classList.remove('style-btn');
               } else {
-                refs.startBtn = true;
+                refs.startBtn.classList.add('style-btn');
                 selectedTime = selectedDates[0];
+
               }
         },
 });
@@ -60,7 +62,7 @@ function convertMs(ms) {
   const timer = {
     intervalId: null,
     isActive:false,
-    
+        
     start (){
       if (this.isActive){
         return;
@@ -70,11 +72,11 @@ function convertMs(ms) {
 
     this.intervalId = setInterval (() => {
          const currentTimer = Date.now();
-         const ms = selectedTime - currentTimer;
-         const time = convertMs(ms);
+         const deltaTime = selectedTime - currentTimer;
+         const time = convertMs(deltaTime);
         // console.log(`${days}:${hours}:${minutes}:${seconds}`);
          updateClockTime(time);
-      if (ms <= 0) {
+      if (deltaTime <= 0) {
         this.stopTimer();
       }
         }, 1000);
