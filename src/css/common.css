@@ -16,3 +16,14 @@ img {
   display: block;
   max-width: 100%;
 }
+.timer {
+ display: flex;
+ gap: 10px;
+}
+.field {
+  padding: 2px 2px;
+  margin-top: 10px;
+}
+.style-btn{
+  background-color: rgb(137, 204, 137);
+}

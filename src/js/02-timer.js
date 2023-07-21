@@ -1,5 +1,6 @@
 import flatpickr from "flatpickr";
 import 'flatpickr/dist/flatpickr.min.css';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 const refs= {
     startBtn:document.querySelector('button[data-start]'),
@@ -21,9 +22,9 @@ refs.startBtn.addEventListener('click', ()=> {
         defaultDate: new Date(),
         minuteIncrement: 1,
         onClose(selectedDates) {
-            if (selectedDates[0] < Date.now()) {
-                window.alert('Please choose a date in the future');
-                selectedDates[0] = new Date();
+            if (selectedDates[0] < Date.now() || selectedDates[0] === new Date()) {
+                Notify.failure('Please choose a date in the future');
+                // selectedDates[0] = new Date();
               } else {
                 refs.startBtn = false;
                 selectedTime = selectedDates[0];
@@ -31,7 +32,7 @@ refs.startBtn.addEventListener('click', ()=> {
         },
 });
 
-
+   
 function convertMs(ms) {
     // Number of milliseconds per unit of time
     const second = 1000;
@@ -51,9 +52,9 @@ function convertMs(ms) {
     return { days, hours, minutes, seconds };
   }
 
-  function pad(value) {
-    return String(value).padStart(2, '0');
-  }
+//   function pad(value) {
+//     return String(value).padStart(2, '0');
+//   }
 
   const timer = {
     intervalId: null,
