@@ -31,10 +31,11 @@ const changeColor = {
         this.intervalId = setInterval (() =>{
         const colorBody = getRandomHexColor();
         refs.bodyColor.style.backgroundColor = colorBody;
-        refs.startBtn.disabled = false;
-        refs.startBtn.disabled = true;
+        
       }, 1000)
-
+      
+      refs.startBtn.disabled = false;
+      refs.startBtn.disabled = true;
     },
 
     stop(){
