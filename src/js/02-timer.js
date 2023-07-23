@@ -74,9 +74,11 @@ function convertMs(ms) {
          const currentTimer = Date.now();
          const deltaTime = selectedTime - currentTimer;
          const time = convertMs(deltaTime);
+         console.log(deltaTime);
         // console.log(`${days}:${hours}:${minutes}:${seconds}`);
          updateClockTime(time);
-      if (deltaTime <= 0) {
+      if (deltaTime <= 1000)
+       {
         this.stopTimer();
       }
         }, 1000);
